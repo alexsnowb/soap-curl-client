@@ -1,0 +1,20 @@
+{
+    "name": "alexsnowb/insurance",
+    "type": "project",
+    "require": {
+        "fzaninotto/faker": "^1.9",
+        "ext-soap": "*",
+        "ext-curl": "*"
+    },
+    "authors": [
+        {
+            "name": "alexsnowb",
+            "email": "mne@lexa.in"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
