@@ -49,7 +49,7 @@ class InsuredPersonParms
      *
      * @var Supplementaries
      */
-    //public $supplementaries;
+    public $supplementaries;
     /**
      * The surname
      *

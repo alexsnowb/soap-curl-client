@@ -6,7 +6,7 @@ namespace App\Request;
  * This class stands for insureds
  *
  */
-class insureds
+class InsuredListParms
 {
     /**
      * The insured
@@ -18,12 +18,12 @@ class insureds
      *
      * @param  InsuredPersonParms[] $insured
      *
-     *@uses insureds::setInsured()
+     *@uses InsuredListParms::setInsured()
      */
     public function __construct(array $insured = array())
     {
-        //$this
-        //    ->setInsured($insured);
+        $this
+            ->setInsured($insured);
     }
     /**
      * Get insured value
@@ -39,7 +39,7 @@ class insureds
      *
      * @param InsuredPersonParms[] $insured
      *
-     * @return insureds
+     * @return InsuredListParms
      * @throws \InvalidArgumentException
      */
     public function setInsured(array $insured = array())
@@ -53,7 +53,7 @@ class insureds
      *
      * @param InsuredPersonParms $item
      *
-     * @return insureds
+     * @return InsuredListParms
      * @throws \InvalidArgumentException
      */
     public function addToInsured(InsuredPersonParms $item)
@@ -72,6 +72,6 @@ class insureds
      */
     public function __toString()
     {
-        return 'insureds';
+        return __CLASS__;
     }
 }

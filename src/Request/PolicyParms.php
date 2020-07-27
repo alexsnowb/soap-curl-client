@@ -15,7 +15,7 @@ class PolicyParms
     /**
      * The insureds
      *
-     * @var insureds
+     * @var InsuredListParms
      */
     public $insureds;
     /**
@@ -89,7 +89,7 @@ class PolicyParms
      * Constructor method for PolicyParms
      *
      * @param  string  $destination
-     * @param  insureds  $insureds
+     * @param  InsuredListParms  $insureds
      * @param  string  $issuedOn
      * @param  string  $lastDay
      * @param  string  $officeID
@@ -117,7 +117,7 @@ class PolicyParms
      */
     public function __construct(
         $destination = null,
-        insureds $insureds = null,
+        InsuredListParms $insureds = null,
         $issuedOn = null,
         $lastDay = null,
         $officeID = null,
@@ -182,7 +182,7 @@ class PolicyParms
 
     /**
      * Get insureds value
-     * @return insureds|null
+     * @return InsuredListParms|null
      */
     public function getInsureds()
     {
@@ -195,18 +195,14 @@ class PolicyParms
      * therefore removable from the request, consequently if the value assigned to this
      * property is null, the property is removed from this object
      *
-     * @param  insureds  $insureds
+     * @param  InsuredListParms  $insureds
      *
      * @return PolicyParms
      * @throws \InvalidArgumentException
      */
-    public function setInsureds(insureds $insureds = null)
+    public function setInsureds(InsuredListParms $insureds = null)
     {
-        if (is_null($insureds) || (is_array($insureds) && empty($insureds))) {
-            unset($this->insureds);
-        } else {
-            $this->insureds = $insureds;
-        }
+        $this->insureds = $insureds;
 
         return $this;
     }

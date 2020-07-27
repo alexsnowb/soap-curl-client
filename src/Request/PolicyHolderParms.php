@@ -151,13 +151,15 @@ class PolicyHolderParms
      * @param string $title
      * @param string $zip
      */
-    public function __construct($birthDate = null, $name = null, $isPerson = null, PersonAddParms $personAdd = null, $phone = null, $sex = null, $surname = null)
+    public function __construct($birthDate = null, $name = null, $isPerson = null, PersonAddParms $personAdd = null,
+        $email = null, $phone = null, $sex = null, $surname = null)
     {
         $this
             ->setBirthDate($birthDate)
             ->setName($name)
             ->setIsPerson($isPerson)
             ->setPersonAdd($personAdd)
+            ->setEmail($email)
             ->setPhone($phone)
             ->setSex($sex)
             ->setSurname($surname)

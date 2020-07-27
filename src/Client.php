@@ -26,7 +26,7 @@ class Client
         if ( ! isset($this->client)) {
             $this->client = new \SoapClient(self::SERVICE_API_URL, array(
                 //'features'       => SOAP_SINGLE_ELEMENT_ARRAYS,
-                'soap_version'   => 2,
+                'soap_version'   => SOAP_1_2,
                 'location'       => self::SERVICE_API_URL,
                 'trace'          => 1,
                 'exceptions'     => 0,
@@ -49,7 +49,7 @@ class Client
      */
     function userLogin(UserLogin $userLogin)
     {
-        $response = $this->client->userLogin($userLogin);
+        $response = $this->client->__soapCall('userLogin', [$userLogin]);
 
         if (is_null($response) && empty($response) && is_null($response->return) && is_null($response->return->userUniqueId)) {
             throw new \ErrorException('Invalid login or password, please provide a correct credentials');
@@ -62,7 +62,7 @@ class Client
     function createPolicy(CreatePolicy $createPolicy)
     {
         var_dump($createPolicy);
-        $response = $this->client->createPolicy($createPolicy);
+        $response = $this->client->__soapCall('createPolicy', [$createPolicy]);
 
         var_dump($this->client->__getLastRequest());
 
