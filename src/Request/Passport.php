@@ -10,13 +10,13 @@ class Passport
     /**
      * The series
      *
-     * @var string
+     * @var int
      */
     public $series;
     /**
      * The number
      *
-     * @var string
+     * @var int
      */
     public $number;
 
@@ -57,14 +57,14 @@ class Passport
      * therefore removable from the request, consequently if the value assigned to this
      * property is null, the property is removed from this object
      * @throws \InvalidArgumentException
-     * @param string $series
+     * @param int $series
      * @return Passport
      */
     public function setSeries($series = null)
     {
-        // validation for constraint: string
-        if (!is_null($series) && !is_string($series)) {
-            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($series, true), gettype($series)), __LINE__);
+        // validation for constraint: int
+        if (!is_null($series) && !is_int($series)) {
+            throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a int, %s given', var_export($series, true), gettype($series)), __LINE__);
         }
 
         if (is_null($series) || (is_array($series) && empty($series))) {
@@ -94,7 +94,7 @@ class Passport
     public function setNumber($number = null)
     {
         // validation for constraint: string
-        if (!is_null($number) && !is_string($number)) {
+        if (!is_null($number) && !is_int($number)) {
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($number, true), gettype($number)), __LINE__);
         }
 

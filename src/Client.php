@@ -5,12 +5,10 @@ namespace App;
 use App\Request\CreatePolicy;
 use App\Request\UserLogin;
 use SoapClient;
+use SoapFault;
 
 class Client
 {
-
-    const SERVICE_API_URL = 'http://vzr.paritet-sk.com:7444/Test-Web/hs/InsuranceService?wsdl';
-
     /** @var SoapClient */
     public $client;
     /** @var string */
@@ -19,15 +17,17 @@ class Client
 
     /**
      * Client constructor.
+     *
+     * @param $wsdl
+     *
      * @throws \SoapFault
      */
-    function __construct()
+    function __construct($wsdl)
     {
         if ( ! isset($this->client)) {
-            $this->client = new \SoapClient(self::SERVICE_API_URL, array(
-                //'features'       => SOAP_SINGLE_ELEMENT_ARRAYS,
+            $this->client = new \SoapClient($wsdl, array(
                 'soap_version'   => SOAP_1_2,
-                'location'       => self::SERVICE_API_URL,
+                'location'       => $wsdl,
                 'trace'          => 1,
                 'exceptions'     => 0,
                 'stream_context' => stream_context_create([
@@ -44,31 +44,45 @@ class Client
     /**
      * @param  UserLogin  $userLogin
      *
-     * @return $this
+     * @return mixed|null
      * @throws \ErrorException
      */
     function userLogin(UserLogin $userLogin)
     {
-        $response = $this->client->__soapCall('userLogin', [$userLogin]);
+        try {
+            $response = $this->client->__soapCall('userLogin', [$userLogin]);
+        } catch (SoapFault $exception) {
+            throw new \ErrorException($exception->getCode() .' | '. $exception->getMessage());
+        }
 
-        if (is_null($response) && empty($response) && is_null($response->return) && is_null($response->return->userUniqueId)) {
+
+        if (is_null($response) || empty($response) || empty($response->return) || empty($response->return->userUniqueId)) {
             throw new \ErrorException('Invalid login or password, please provide a correct credentials');
         }
 
         $this->token = $response->return->userUniqueId;
-        return $this;
+        return $response;
     }
 
+    /**
+     * @param  CreatePolicy  $createPolicy
+     *
+     * @return mixed
+     * @throws \ErrorException
+     */
     function createPolicy(CreatePolicy $createPolicy)
     {
-        var_dump($createPolicy);
         $response = $this->client->__soapCall('createPolicy', [$createPolicy]);
 
-        var_dump($this->client->__getLastRequest());
+        if (is_null($response) && empty($response) && is_null($response->return)) {
+            throw new \ErrorException('Invalid request. Error: '. print_r($this->client->__getLastResponse()));
+        }
 
-        var_dump($response);
+        if (isset($response->return->error) && isset($response->return->error->errCode) & $response->return->error->errCode !=0) {
+            throw new \ErrorException('Invalid request. Error: '. print_r($response->return->error));
+        }
 
-        // return $response;
+        return $response;
     }
 }
 

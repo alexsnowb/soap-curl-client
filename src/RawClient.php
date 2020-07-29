@@ -12,7 +12,8 @@ class RawClient
     public function send()
     {
 
-        $data = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://paritet-sk.com/hs/InsuranceService">
+        $data = <<<'XML'
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://paritet-sk.com/hs/InsuranceService">
    <soapenv:Header/>
    <soapenv:Body>
       <createPolicy>
@@ -90,7 +91,8 @@ class RawClient
 <currency>EUR</currency>
       </createPolicy>
    </soapenv:Body>
-</soapenv:Envelope>';
+</soapenv:Envelope>
+XML;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "http://vzr.paritet-sk.com:7444/Test-Web/hs/InsuranceService");
