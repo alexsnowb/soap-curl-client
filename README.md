@@ -1,6 +1,6 @@
 # soap-curl-client [![Build Status](https://travis-ci.org/alexsnowb/soap-curl-client.svg?branch=master)](https://travis-ci.org/alexsnowb/soap-curl-client)
 
-Example SOAP client + curl SOAP implementation
+Example PHP SOAP client + curl SOAP implementation
 
 ### Example
 
